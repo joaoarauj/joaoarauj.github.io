@@ -1,0 +1,179 @@
+{
+	"metadata": {
+		"type": "App"
+	},
+	"project": {
+		"gammaInput": false,
+		"gammaOutput": false,
+		"shadows": true,
+		"vr": false
+	},
+	"camera": {
+		"metadata": {
+			"version": 4.5,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"object": {
+			"uuid": "984C34C7-D2B2-4EDF-A19F-FB0C70D0D1B7",
+			"type": "PerspectiveCamera",
+			"name": "Camera",
+			"layers": 1,
+			"matrix": [-0.998104,0,0.061554,0,-0.00316,0.998682,-0.051232,0,-0.061473,-0.05133,-0.996788,0,-2.19488,-1.832733,-35.590345,1],
+			"fov": 50,
+			"zoom": 1,
+			"near": 0.01,
+			"far": 1000,
+			"focus": 10,
+			"aspect": 1.239067,
+			"filmGauge": 35,
+			"filmOffset": 0
+		}
+	},
+	"scene": {
+		"metadata": {
+			"version": 4.5,
+			"type": "Object",
+			"generator": "Object3D.toJSON"
+		},
+		"geometries": [
+			{
+				"uuid": "38337637-20F3-49B1-82DD-781CA9E9681B",
+				"type": "CylinderBufferGeometry",
+				"radiusTop": 1,
+				"radiusBottom": 1,
+				"height": 0.001,
+				"radialSegments": 100,
+				"heightSegments": 1,
+				"openEnded": false
+			},
+			{
+				"uuid": "6D3AF9A0-02D8-484C-A3F9-CD6690DFEC1D",
+				"type": "CylinderBufferGeometry",
+				"radiusTop": 1,
+				"radiusBottom": 1,
+				"height": 0.002,
+				"radialSegments": 100,
+				"heightSegments": 1,
+				"openEnded": false
+			},
+			{
+				"uuid": "5481F8A9-E3A2-4349-985A-FE09FCA6476F",
+				"type": "CylinderBufferGeometry",
+				"radiusTop": 1,
+				"radiusBottom": 1,
+				"height": 0.01,
+				"radialSegments": 100,
+				"heightSegments": 1,
+				"openEnded": false
+			}],
+		"materials": [
+			{
+				"uuid": "81A14848-504E-41BA-B088-F5350AF4A723",
+				"type": "MeshBasicMaterial",
+				"color": 131586,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true
+			},
+			{
+				"uuid": "6B19B543-05C6-4384-B286-FB96F03B8112",
+				"type": "MeshBasicMaterial",
+				"name": "scticker",
+				"color": 1644825,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true
+			},
+			{
+				"uuid": "198A2454-A882-4BDF-889D-A17FCE26FF4B",
+				"type": "MeshBasicMaterial",
+				"name": "buraco",
+				"color": 14671839,
+				"depthFunc": 3,
+				"depthTest": true,
+				"depthWrite": true
+			}],
+		"object": {
+			"uuid": "1DB0E0B5-269E-44F6-952B-4A0FF55297A5",
+			"type": "Scene",
+			"name": "Scene",
+			"layers": 1,
+			"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+			"children": [
+				{
+					"uuid": "BF34284A-E12B-4F99-A5EF-EBAFCB6B5F47",
+					"type": "Mesh",
+					"name": "Vinil",
+					"frustumCulled": false,
+					"layers": 1,
+					"matrix": [5,0,0,0,0,0,5,0,0,-5,0,0,0,0,-10,1],
+					"geometry": "38337637-20F3-49B1-82DD-781CA9E9681B",
+					"material": "81A14848-504E-41BA-B088-F5350AF4A723",
+					"children": [
+						{
+							"uuid": "3F310ECB-EB83-481E-BA3D-ADF4A24998C1",
+							"type": "Mesh",
+							"name": "Vinil",
+							"frustumCulled": false,
+							"layers": 1,
+							"matrix": [0.3,0,0,0,0,1,0,0,0,0,0.3,0,0,0,0,1],
+							"geometry": "6D3AF9A0-02D8-484C-A3F9-CD6690DFEC1D",
+							"material": "6B19B543-05C6-4384-B286-FB96F03B8112"
+						},
+						{
+							"uuid": "AEDE78F7-5197-42CB-BC17-C60641B54BA4",
+							"type": "Mesh",
+							"name": "Vinil",
+							"frustumCulled": false,
+							"layers": 1,
+							"matrix": [0.02,0,0,0,0,1,0,0,0,0,0.02,0,0,0,0,1],
+							"geometry": "5481F8A9-E3A2-4349-985A-FE09FCA6476F",
+							"material": "198A2454-A882-4BDF-889D-A17FCE26FF4B"
+						}]
+				},
+				{
+					"uuid": "64AE89E9-141F-4205-BDB8-761191A86686",
+					"type": "PerspectiveCamera",
+					"name": "PerspectiveCamera",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"fov": 50,
+					"zoom": 1,
+					"near": 1,
+					"far": 10000,
+					"focus": 10,
+					"aspect": 1,
+					"filmGauge": 35,
+					"filmOffset": 0
+				},
+				{
+					"uuid": "6CDDA426-5640-4181-A451-59A9A96A0033",
+					"type": "AmbientLight",
+					"name": "AmbientLight",
+					"layers": 1,
+					"matrix": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],
+					"color": 2236962,
+					"intensity": 1
+				}],
+			"background": 15066597
+		}
+	},
+	"scripts": {
+		"BF34284A-E12B-4F99-A5EF-EBAFCB6B5F47": [
+			{
+				"name": "rotate",
+				"source": "function update( event ) {\n\n\tthis.rotation.y+=0.008;\n\tthis.rotation.x+=0.008;\n\tthis.rotation.z+=0.008;\n}\n"
+			}],
+		"64AE89E9-141F-4205-BDB8-761191A86686": [
+			{
+				"name": "camera",
+				"source": "player.setCamera(this);"
+			}],
+		"AEDE78F7-5197-42CB-BC17-C60641B54BA4": [
+			{
+				"name": "",
+				"source": "function update( event ) {}"
+			}]
+	}
+}

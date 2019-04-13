@@ -54,15 +54,7 @@
 			init();
 			animate();
 
-function render() {
-        var timer = -0.0002 * Date.now();
-        camera.position.x += ( mouseX - camera.position.x ) * .05;
-        camera.position.y += ( - mouseY - camera.position.y ) * .05;
-        camera.lookAt( scene.position );
-        pointLight.position.x = 1500 * Math.cos( timer );
-        pointLight.position.z = 1500 * Math.sin( timer );
-        renderer.render( scene, camera );
-    }
+
 			function init() {
 
 				container = document.createElement( 'div' );
@@ -202,6 +194,29 @@ function render() {
 				renderer.render( scene, camera );
 
 			}
+			function render() {
+			var timer = -0.0002 * Date.now();
+			camera.position.x += ( mouseX - camera.position.x ) * .005;
+			camera.position.y += ( - mouseY - camera.position.y ) * .005;
+			camera.lookAt( scene.position );
+			pointLight.position.x = 1500 * Math.cos( timer );
+			pointLight.position.z = 1500 * Math.sin( timer );
+			renderer.render( scene, camera );
+		    }
+			if (navigator.userAgent.match(/Android/i)
+        || navigator.userAgent.match(/webOS/i)
+        || navigator.userAgent.match(/iPhone/i)
+        || navigator.userAgent.match(/iPad/i)
+        || navigator.userAgent.match(/iPod/i)
+        || navigator.userAgent.match(/BlackBerry/i)
+        || navigator.userAgent.match(/Windows Phone/i)
+    ) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
 
 		</script>
 		<script type="text/javascript">

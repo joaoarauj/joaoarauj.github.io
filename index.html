@@ -1,47 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title></title>
+		<title>VINIL</title>
 		<meta charset="utf-8">
-		<meta name="generator" content="Three.js Editor">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
-				font-family: sans-serif;
-				font-size: 13px;
-				background-color: #000;
-				margin: 0px;
-				overflow: hidden;
+				padding:0;
+				margin:0;
+				overflow:hidden;
 			}
+
 		</style>
 	</head>
-	<body ontouchstart="">
-		<script src="js/three.min.js"></script>
-		<script src="js/app.js"></script>
-		
+
+	<body>
+
+		<script src="build/three.js"></script>
+		<script src="js/loaders/GLTFLoader.js"></script>
+
+		<script src="js/WebGL.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+
+
 		<script>
 
-			var loader = new THREE.FileLoader();
-			loader.load( 'app.json', function ( text ) {
 
-				var player = new APP.Player();
-				player.load( JSON.parse( text ) );
-				player.setSize( window.innerWidth, window.innerHeight );
-				player.play();
+			if ( WEBGL.isWebGLAvailable() === false ) {
 
-				document.body.appendChild( player.dom );
+				document.body.appendChild( WEBGL.getWebGLErrorMessage() );
 
-				window.addEventListener( 'resize', function () {
-					player.setSize( window.innerWidth, window.innerHeight );
+			}
+
+			var statsEnabled = false;
+
+			var container, stats, loader;
+
+			var camera, scene, renderer;
+
+			var mesh;
+
+			var spotLight;
+
+			var mouseX = 0;
+			var mouseY = 0;
+
+			var targetX = 0;
+			var targetY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			init();
+			animate();
+
+function render() {
+        var timer = -0.0002 * Date.now();
+        camera.position.x += ( mouseX - camera.position.x ) * .05;
+        camera.position.y += ( - mouseY - camera.position.y ) * .05;
+        camera.lookAt( scene.position );
+        pointLight.position.x = 1500 * Math.cos( timer );
+        pointLight.position.z = 1500 * Math.sin( timer );
+        renderer.render( scene, camera );
+    }
+			function init() {
+
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+
+				//
+
+				camera = new THREE.PerspectiveCamera( 20, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 1200;
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.Color( "rgb(250, 250, 250)");
+
+				// LIGHTS
+
+				scene.add( new THREE.HemisphereLight( 11184810, 11184810 ) );
+
+				spotLight = new THREE.SpotLight( 0xffffbb, 1 );
+				spotLight.position.set( 0.2, 0, 1 );
+				spotLight.position.multiplyScalar( 700 );
+				scene.add( spotLight );
+
+				spotLight.castShadow = true;
+
+				spotLight.shadow.mapSize.width = 2048;
+				spotLight.shadow.mapSize.height = 2048;
+
+				spotLight.shadow.camera.near = 200;
+				spotLight.shadow.camera.far = 1500;
+
+				spotLight.shadow.camera.fov = 40;
+
+				spotLight.shadow.bias = - 0.005;
+
+				//
+
+				var mapHeight = new THREE.TextureLoader().load( "" );
+
+				var material = new THREE.MeshPhongMaterial( {
+					color: 000,
+					specular: 0x100,
+					shininess: 5,
+					bumpMap: mapHeight,
+					bumpScale: 80
 				} );
 
-			} );
-			var button = document.createElement( 'a' );
-			button.style.cssText = 'position: absolute; bottom: 20px; right: 20px; padding: 12px 14px; color: #000; text-decoration: none;';
-			button.target = '_blank';
-			button.textContent = 'exemplo animação/interacção, esquisso';
-			document.body.appendChild( button );
+				loader = new THREE.GLTFLoader();
+				loader.load( "models/vinil.glb", function ( gltf ) {
+
+					createScene( gltf.scene.children[ 0 ].geometry, 5, material );
+
+				} );
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				renderer.shadowMap.enabled = true;
+
+				//
+
+				renderer.gammaInput = true;
+				renderer.gammaOutput = true;
+
+				//
+
+				if ( statsEnabled ) {
+
+					stats = new Stats();
+					container.appendChild( stats.dom );
+
+				}
+
+				// EVENTS
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function createScene( geometry, scale, material ) {
+
+				mesh = new THREE.Mesh( geometry, material );
+
+				mesh.position.y = - 0;
+				mesh.scale.set( scale, scale, scale );
+
+				mesh.castShadow = true;
+				mesh.receiveShadow = true;
+
+				scene.add( mesh );
+
+			}
+
+			//
+
+			function onWindowResize() {
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+			}
+
+			function onDocumentMouseMove( event ) {
+
+				mouseX = ( event.clientX - windowHalfX );
+				mouseY = ( event.clientY - windowHalfY );
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				if ( statsEnabled ) stats.update();
+
+			}
+
+			function render() {
+
+				targetX = mouseX * .005;
+				targetY = mouseY * .005;
+
+				if ( mesh ) {
+
+					mesh.rotation.y += 0.25 * ( targetX - mesh.rotation.y );
+					mesh.rotation.x += 0.25 * ( targetY - mesh.rotation.x );
+
+				}
+
+				renderer.render( scene, camera );
+
+			}
 
 		</script>
+		<script type="text/javascript">
+			
+		</script>
+
 	</body>
 </html>

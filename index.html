@@ -21,6 +21,7 @@
 
 		<script src="js/WebGL.js"></script>
 		<script src="js/libs/stats.min.js"></script>
+		
 
 
 		<script>
@@ -54,7 +55,6 @@
 			init();
 			animate();
 
-
 			function init() {
 
 				container = document.createElement( 'div' );
@@ -66,7 +66,7 @@
 				camera.position.z = 1200;
 
 				scene = new THREE.Scene();
-				scene.background = new THREE.Color( "rgb(250, 250, 250)");
+				scene.background = new THREE.Color( "rgb(230, 230, 230)");
 
 				// LIGHTS
 
@@ -94,9 +94,9 @@
 				var mapHeight = new THREE.TextureLoader().load( "" );
 
 				var material = new THREE.MeshPhongMaterial( {
-					color: 000,
-					specular: 0x100,
-					shininess: 5,
+					color: "rgb(2, 2, 2)",
+					specular: 0x1,
+					shininess: 1,
 					bumpMap: mapHeight,
 					bumpScale: 80
 				} );
@@ -194,31 +194,13 @@
 				renderer.render( scene, camera );
 
 			}
-			function render() {
-			var timer = -0.0002 * Date.now();
-			camera.position.x += ( mouseX - camera.position.x ) * .005;
-			camera.position.y += ( - mouseY - camera.position.y ) * .005;
-			camera.lookAt( scene.position );
-			pointLight.position.x = 1500 * Math.cos( timer );
-			pointLight.position.z = 1500 * Math.sin( timer );
-			renderer.render( scene, camera );
-		    }
-			if (navigator.userAgent.match(/Android/i)
-        || navigator.userAgent.match(/webOS/i)
-        || navigator.userAgent.match(/iPhone/i)
-        || navigator.userAgent.match(/iPad/i)
-        || navigator.userAgent.match(/iPod/i)
-        || navigator.userAgent.match(/BlackBerry/i)
-        || navigator.userAgent.match(/Windows Phone/i)
-    ) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
+
+
+
+
 
 		</script>
+
 		<script type="text/javascript">
 			
 		</script>
